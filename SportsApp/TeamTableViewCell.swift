@@ -24,7 +24,6 @@ class TeamTableViewCell: UITableViewCell {
         self.teamImageView.clipsToBounds = true
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

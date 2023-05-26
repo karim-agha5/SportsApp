@@ -65,9 +65,9 @@ class CricketViewController: UIViewController,UITableViewDelegate,UITableViewDat
         return cell ?? UITableViewCell()
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
+        navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }
 
 }
