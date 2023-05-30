@@ -106,8 +106,10 @@ class SportsNetworkService{
         }
     }
     
+    
     func getRemoteTennisLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
         let fullURL = Constants.BASE_URL + Constants.TENNIS + Constants.PRE_API_KEY + Constants.API_KEY
+      
         
         let concurrentQueue = DispatchQueue(label: "My Custom ConcurrentQueue", attributes: .concurrent)
         
@@ -137,4 +139,66 @@ class SportsNetworkService{
             task.resume()
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func getRemoteUpcomingFootballMatches(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
+      //  let fullURL = Constants.BASE_URL + Constants.TENNIS + Constants.PRE_API_KEY + Constants.API_KEY
+        
+        let fullURL = Constants.UPCOMING_FOOTBALL_MATCHES
+        
+        let concurrentQueue = DispatchQueue(label: "My Custom ConcurrentQueue", attributes: .concurrent)
+        
+        concurrentQueue.async {
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
+                }
+                catch{
+                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 }

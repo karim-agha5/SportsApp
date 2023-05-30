@@ -11,11 +11,6 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
 
     private var sports: [Sport] = []
     
-    
-    
-    
-    
-    
     @IBOutlet weak var sportsCollectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -48,6 +43,7 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        self.sportsCollectionView.frame.height * 0.5
         return CGSize(width: 170, height: 300)
     }
     
@@ -71,6 +67,4 @@ class SportsViewController: UIViewController,UICollectionViewDelegate,UICollecti
         default: navigationController?.pushViewController(tennisViewController, animated: true)
         }
     }
-
 }
-
