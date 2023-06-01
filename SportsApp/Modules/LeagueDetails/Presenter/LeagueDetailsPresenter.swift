@@ -10,12 +10,11 @@ import Foundation
 
 protocol AnyLeagueDetailsPresenter{
     func attachView(leagueDetailsScreen: AnyLeagueDetailsScreen)
-    func getRemoteFootballLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ())
-    func getRemoteUpcomingMatches()
+    func getRemoteUpcomingMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ())
 }
 
 
-class LeagueDetailsPresenter /*: AnyLeagueDetailsPresenter */{
+class LeagueDetailsPresenter : AnyLeagueDetailsPresenter{
     
     private let sportsNetworkService = SportsNetworkService()
     
@@ -25,7 +24,7 @@ class LeagueDetailsPresenter /*: AnyLeagueDetailsPresenter */{
         self.leagueDetailsScreen = leagueDetailsScreen
     }
     
-    func getRemoteFootballLeagues(onComplete: @escaping (Array<Dictionary<String, Any>>) -> Void,updateUI: @escaping () -> ()) {
-        sportsNetworkService.getRemoteFootballLeagues(onComplete: onComplete,updateUI: updateUI)
+    func getRemoteUpcomingMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()) {
+        sportsNetworkService.getRemoteUpcomingFootballMatches(leagueId: leagueId , onComplete: onComplete,updateUI: updateUI)
     }
 }

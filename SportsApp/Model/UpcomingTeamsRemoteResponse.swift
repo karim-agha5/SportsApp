@@ -59,5 +59,7 @@ class UpcomingMatch : Decodable{
     var event_first_player_logo: String?
     var event_second_player_logo: String?
     
+    // football
+    var event_final_result: String?
     
 }

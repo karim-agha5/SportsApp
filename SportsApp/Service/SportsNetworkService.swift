@@ -152,20 +152,6 @@ class SportsNetworkService{
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func getRemoteUpcomingFootballMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
         let fullURL = Constants.UPCOMING_FOOTBALL_MATCHES + "\(leagueId)"
@@ -200,6 +186,30 @@ class SportsNetworkService{
     
     
     
-    
+    func getRemoteLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = Constants.CURRENT_FOOTBALL_MATCHES + "\(leagueId)"
+        
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
+                    onComplete(result.result ?? [])
+                    updateUI()
+                }
+                catch{
+                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+        
+    }
     
 }

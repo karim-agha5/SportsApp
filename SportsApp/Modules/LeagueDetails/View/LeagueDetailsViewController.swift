@@ -7,13 +7,19 @@
 
 import UIKit
 
-class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,AnyLeagueDetailsScreen {
+    
+    
     
     let imageString: String = "SportImagePlaceholder"
     
     var leagueId: Int = -1
     
     var upcomingMatchesArray = [UpcomingMatch]()
+    
+    var liveMatchesArray = [UpcomingMatch]()
+    
+    private let leagueDetailsPresenter: AnyLeagueDetailsPresenter = LeagueDetailsPresenter()
     
     @IBOutlet weak var upcomingMatchesCollectionview: UICollectionView!
     
@@ -23,9 +29,11 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        leagueDetailsPresenter.attachView(leagueDetailsScreen: self)
+        
         upcomingMatchesCollectionview.register(UINib(nibName: "CustomLeagueDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomLeagueDetailsCollectionViewCell")
         
-        currentGamescTableview.register(UINib(nibName: "CustomLeagueDetailsCollectionViewCell", bundle: nil), forCellReuseIdentifier: "CustomLeagueDetailsCollectionViewCell")
+        currentGamescTableview.register(UINib(nibName: "CustomLeagueDetailsTableViewCell", bundle: nil), forCellReuseIdentifier: "CustomLeagueDetailsTableViewCell")
         
         teamsCollectionview.register(UINib(nibName: "CustomLeagueDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomLeagueDetailsCollectionViewCell")
         
@@ -38,27 +46,45 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         teamsCollectionview.delegate = self
         teamsCollectionview.dataSource = self
         
-        foo(leagueId: leagueId)
+        getRemoteUpcomingMatches(leagueId: leagueId)
+        
+        getRemoteLiveMatches(leagueId: 332)
         
     }
     
-    
-    private func foo(leagueId: Int?){
+    private func getRemoteLiveMatches(leagueId: Int){
         let service = SportsNetworkService()
-        service.getRemoteUpcomingFootballMatches(leagueId: leagueId ?? -1, onComplete: onComplete){
+        service.getRemoteLiveMatches(leagueId: leagueId, onComplete: storeLiveMatchesInArrayLocally){
+            DispatchQueue.main.async {
+                self.currentGamescTableview.reloadData()
+            }
+        }
+    }
+    
+    private func storeLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>){
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> \(liveMatches.count)")
+        for livematch in liveMatches{
+            liveMatchesArray.append(livematch)
+        }
+    }
+    
+    private func getRemoteUpcomingMatches(leagueId: Int){
+        leagueDetailsPresenter.getRemoteUpcomingMatches(leagueId: leagueId, onComplete: storeUpcomingMatchesInArrayLocally){
             DispatchQueue.main.async {
                 self.upcomingMatchesCollectionview.reloadData()
             }
         }
-        
     }
     
-    private func onComplete(test: Array<UpcomingMatch>){
-        for i in test.indices{
-            upcomingMatchesArray.append(test[i])
+    func storeUpcomingMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>) {
+        /*for i in upcomingMatches.indices{
+            upcomingMatchesArray.append(upcomingMatches[i])
+        }*/
+        
+        for upcomingMatch in upcomingMatches {
+            upcomingMatchesArray.append(upcomingMatch)
         }
     }
-    
     
     private func initArray(){
         var upcomingMatch = UpcomingMatch()
@@ -75,17 +101,16 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO Change later
-        return 0
+        return liveMatchesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     /*   let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsCollectionViewCell",for: indexPath) as? CustomLeagueDetailsCollectionViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsTableViewCell",for: indexPath) as? CustomLeagueDetailsTableViewCell
         
-        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].event_home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].event_away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, date: upcomingMatchesArray[indexPath.item].event_date, score: "1-1", time: upcomingMatchesArray[indexPath.item].event_time)
+        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, score: upcomingMatchesArray[indexPath.item].event_final_result)
         
-        return cell ?? UITableViewCell()*/
-        return UITableViewCell()
+        return cell ?? UITableViewCell()
+       // return UITableViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -95,7 +120,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomLeagueDetailsCollectionViewCell", for: indexPath) as? CustomLeagueDetailsCollectionViewCell
        
-        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, date: upcomingMatchesArray[indexPath.item].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.item].event_time)
+        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.row].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.row].away_team_logo, firstName: upcomingMatchesArray[indexPath.row].event_home_team, secondName: upcomingMatchesArray[indexPath.row].event_away_team, date: upcomingMatchesArray[indexPath.row].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.row].event_time)
         
         return cell ?? CustomLeagueDetailsCollectionViewCell()
     }

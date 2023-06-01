@@ -46,6 +46,13 @@ class Constants{
     static let UPCOMING_TENNIS_MATCHES = BASE_URL + "tennis/?met=Fixtures&" + API_KEY + "&from=2023-05-29&to=2023-06-10"
     
     
+    static let CURRENT_FOOTBALL_MATCHES = BASE_URL + FOOTBALL + "/?met=Livescore&APIkey=" + API_KEY + "&leagueId="
+    
+    
+    
+    
+    
+    
    /*
     private let footballUrlString = "https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7"
     */
