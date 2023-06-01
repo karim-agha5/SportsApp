@@ -59,7 +59,7 @@ class BasketballViewController: UIViewController,UITableViewDataSource,UITableVi
         
         if leaguesArray.count > 0{
          
-            cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title, andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image)!)
+            cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknow", andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image ?? "")!)
             
         }
         

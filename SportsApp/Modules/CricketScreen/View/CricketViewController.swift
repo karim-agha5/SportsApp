@@ -58,7 +58,7 @@ class CricketViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         if leaguesArray.count > 0{
          
-            cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title, andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image)!)
+            cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknown", andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image ?? "")!)
             
         }
         

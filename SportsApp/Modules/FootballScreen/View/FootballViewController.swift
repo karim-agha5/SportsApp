@@ -41,6 +41,7 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
     private func storeLeaguesLocallyInArray(leaguesDictionary: Dictionary<String,Any>){
         let leagueName: String = leaguesDictionary["league_name"] as! String
         var leagueLogo: String?
+        var leagueKey: Int?
         let league = League()
         
         league.title = leagueName
@@ -51,6 +52,12 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
         else{
             league.image = "SportImagePlaceholder"
         }
+       
+        if leaguesDictionary["league_key"] != nil {
+            leagueKey = leaguesDictionary["league_key"] as? Int
+            league.league_key = leagueKey
+        }
+                
         leaguesArray.append(league)
     }
     
@@ -64,21 +71,21 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
         if leaguesArray.count > 0{
-            SDWebImageDownloader.shared.downloadImage(with: URL(string: leaguesArray[indexPath.item].image), progress: nil){
+            SDWebImageDownloader.shared.downloadImage(with: URL(string: leaguesArray[indexPath.item].image ?? ""), progress: nil){
                 (image, _, _, _) in
                        if let _ = image {
-                           cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title, andTeamImage: image!)
+                           cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknown", andTeamImage: image!)
                 }
             }
             
         }
-        
         return cell ?? UITableViewCell()
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
+        leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }
 }

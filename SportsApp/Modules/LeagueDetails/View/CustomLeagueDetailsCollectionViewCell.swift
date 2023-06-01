@@ -42,10 +42,9 @@ class CustomLeagueDetailsCollectionViewCell: UICollectionViewCell {
                       score: String?,
                       time: String?){
            
-           ivTeamOne.sd_setImage(with:URL(string: firstLogo ?? ""), placeholderImage: UIImage(named:"FootballImage")!)
+           ivTeamOne.sd_setImage(with:URL(string: firstLogo ?? ""), placeholderImage: UIImage(named:"SportImagePlaceholder")!)
            
-           // fetch second image here
-           ivTeamTwo.sd_setImage(with:URL(string: secondLogo ?? ""), placeholderImage: UIImage(named:"FootballImage")!)
+           ivTeamTwo.sd_setImage(with:URL(string: secondLogo ?? ""), placeholderImage: UIImage(named:"SportImagePlaceholder")!)
            
            labelTeamOne.text = firstName
            labelTeamTwo.text = secondName

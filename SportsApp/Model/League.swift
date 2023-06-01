@@ -9,16 +9,19 @@ import Foundation
 import UIKit
 
 class League{
-    var title: String
-    var image: String
+    var title: String?
+    var image: String?
+    var league_key: Int?
     
     init(){
         self.title = "Unknown"
+        self.league_key = -1
         self.image = "SportImagePlaceholder"
     }
     
-    init(title: String,countryName: String,image: String){
+    init(title: String,league_key: Int,image: String){
         self.title = title
+        self.league_key = league_key
         self.image = image
     }
 }

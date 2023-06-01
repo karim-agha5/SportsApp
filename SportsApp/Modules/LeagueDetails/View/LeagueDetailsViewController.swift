@@ -11,6 +11,8 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     let imageString: String = "SportImagePlaceholder"
     
+    var leagueId: Int = -1
+    
     var upcomingMatchesArray = [UpcomingMatch]()
     
     @IBOutlet weak var upcomingMatchesCollectionview: UICollectionView!
@@ -21,7 +23,6 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initArray()
         upcomingMatchesCollectionview.register(UINib(nibName: "CustomLeagueDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomLeagueDetailsCollectionViewCell")
         
         currentGamescTableview.register(UINib(nibName: "CustomLeagueDetailsCollectionViewCell", bundle: nil), forCellReuseIdentifier: "CustomLeagueDetailsCollectionViewCell")
@@ -36,7 +37,28 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         
         teamsCollectionview.delegate = self
         teamsCollectionview.dataSource = self
+        
+        foo(leagueId: leagueId)
+        
     }
+    
+    
+    private func foo(leagueId: Int?){
+        let service = SportsNetworkService()
+        service.getRemoteUpcomingFootballMatches(leagueId: leagueId ?? -1, onComplete: onComplete){
+            DispatchQueue.main.async {
+                self.upcomingMatchesCollectionview.reloadData()
+            }
+        }
+        
+    }
+    
+    private func onComplete(test: Array<UpcomingMatch>){
+        for i in test.indices{
+            upcomingMatchesArray.append(test[i])
+        }
+    }
+    
     
     private func initArray(){
         var upcomingMatch = UpcomingMatch()
@@ -58,7 +80,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      /*  let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueCell",for: indexPath) as? CustomCollectionViewLeagueCell
+     /*   let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsCollectionViewCell",for: indexPath) as? CustomLeagueDetailsCollectionViewCell
         
         cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].event_home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].event_away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, date: upcomingMatchesArray[indexPath.item].event_date, score: "1-1", time: upcomingMatchesArray[indexPath.item].event_time)
         
@@ -72,10 +94,10 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomLeagueDetailsCollectionViewCell", for: indexPath) as? CustomLeagueDetailsCollectionViewCell
+       
+        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, date: upcomingMatchesArray[indexPath.item].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.item].event_time)
         
-        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].event_home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].event_away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, date: upcomingMatchesArray[indexPath.item].event_date, score: "1-1", time: upcomingMatchesArray[indexPath.item].event_time)
-            
-        return cell ?? UICollectionViewCell()
+        return cell ?? CustomLeagueDetailsCollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

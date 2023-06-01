@@ -20,7 +20,7 @@ class TeamTableViewCell: UITableViewCell {
         self.teamLabel.text = teamName
         self.teamImageView.image = teamImage
         self.teamImageView.layer.masksToBounds = false
-        self.teamImageView.layer.cornerRadius = self.teamImageView.frame.size.width / 2
+        self.teamImageView.layer.cornerRadius = (self.teamImageView.frame.size.width + self.teamImageView.frame.size.height) / 4
         self.teamImageView.clipsToBounds = true
     }
     
