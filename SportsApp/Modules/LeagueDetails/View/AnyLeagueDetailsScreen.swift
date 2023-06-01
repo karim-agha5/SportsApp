@@ -9,4 +9,5 @@ import Foundation
 
 protocol AnyLeagueDetailsScreen{
     func storeUpcomingMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
+    func storeLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
 }

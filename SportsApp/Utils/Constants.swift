@@ -35,7 +35,7 @@ class Constants{
     
     static let TENNIS: String = "tennis"    
     
-    //static let UPCOMING_FOOTBALL_MATCHES = BASE_URL + "football/?met=Fixtures&APIkey=" + API_KEY + "&from=2023-05-31&to=2023-06-10&leagueId="
+    static let FOOTBALL_TEAMS = BASE_URL + "football/?met=Fixtures&APIkey=" + API_KEY + "&from=2023-05-31&to=2023-06-10&leagueId="
     
     static let UPCOMING_FOOTBALL_MATCHES = BASE_URL + "football/?met=Fixtures&APIkey=" + API_KEY + "&from=\(startDateAsString)&to=\(endDateAsString)&leagueId="
     

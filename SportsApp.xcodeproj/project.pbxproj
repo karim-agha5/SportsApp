@@ -29,6 +29,8 @@
 		8A70E6B52A1EFB4A0081F266 /* CricketPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A70E6B42A1EFB490081F266 /* CricketPresenter.swift */; };
 		8A70E6B72A1EFC160081F266 /* AnyCricketScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A70E6B62A1EFC160081F266 /* AnyCricketScreen.swift */; };
 		8A7259D12A19B057002E3639 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7259D02A19B057002E3639 /* League.swift */; };
+		8A776E272A290E2800E97AB3 /* CustomTeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A776E252A290E2800E97AB3 /* CustomTeamCollectionViewCell.swift */; };
+		8A776E282A290E2800E97AB3 /* CustomTeamCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A776E262A290E2800E97AB3 /* CustomTeamCollectionViewCell.xib */; };
 		8A83DAD22A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83DAD02A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.swift */; };
 		8A83DAD32A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A83DAD12A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.xib */; };
 		8AA94D212A1954FD00A0CB91 /* FootballViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA94D202A1954FD00A0CB91 /* FootballViewController.swift */; };
@@ -95,6 +97,8 @@
 		8A70E6B42A1EFB490081F266 /* CricketPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CricketPresenter.swift; sourceTree = "<group>"; };
 		8A70E6B62A1EFC160081F266 /* AnyCricketScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCricketScreen.swift; sourceTree = "<group>"; };
 		8A7259D02A19B057002E3639 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		8A776E252A290E2800E97AB3 /* CustomTeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTeamCollectionViewCell.swift; sourceTree = "<group>"; };
+		8A776E262A290E2800E97AB3 /* CustomTeamCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTeamCollectionViewCell.xib; sourceTree = "<group>"; };
 		8A83DAD02A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLeagueDetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A83DAD12A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomLeagueDetailsCollectionViewCell.xib; sourceTree = "<group>"; };
 		8AA94D202A1954FD00A0CB91 /* FootballViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FootballViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 				8A5A92112A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift */,
 				8AC4B2CF2A28312B00661E38 /* CustomLeagueDetailsTableViewCell.swift */,
 				8AC4B2D02A28312B00661E38 /* CustomLeagueDetailsTableViewCell.xib */,
+				8A776E252A290E2800E97AB3 /* CustomTeamCollectionViewCell.swift */,
+				8A776E262A290E2800E97AB3 /* CustomTeamCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -553,6 +559,7 @@
 				8A83DAD32A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.xib in Resources */,
 				8A4BF0AB2A17DD0200DA2F2A /* Assets.xcassets in Resources */,
 				8A4BF0A62A17DD0000DA2F2A /* Main.storyboard in Resources */,
+				8A776E282A290E2800E97AB3 /* CustomTeamCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +689,7 @@
 			files = (
 				8A5A92122A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift in Sources */,
 				8AC47F3C2A18008B00844DC8 /* Sport.swift in Sources */,
+				8A776E272A290E2800E97AB3 /* CustomTeamCollectionViewCell.swift in Sources */,
 				8AA94D212A1954FD00A0CB91 /* FootballViewController.swift in Sources */,
 				8AA94D272A19553000A0CB91 /* CricketViewController.swift in Sources */,
 				8A83DAD22A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.swift in Sources */,
