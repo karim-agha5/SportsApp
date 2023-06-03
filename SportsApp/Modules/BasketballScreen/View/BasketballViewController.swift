@@ -41,11 +41,16 @@ class BasketballViewController: UIViewController,UITableViewDataSource,UITableVi
     
     private func storeLeaguesLocallyInArray(leaguesDictionary: Dictionary<String,Any>){
         let leagueName: String = leaguesDictionary["league_name"] as! String
+        var leagueKey: Int?
         let league = League()
     
         league.title = leagueName
         league.image = "SportImagePlaceholder"
         
+        if leaguesDictionary["league_key"] != nil {
+            leagueKey = leaguesDictionary["league_key"] as? Int
+            league.league_key = leagueKey
+        }
         leaguesArray.append(league)
     }
 
@@ -68,6 +73,8 @@ class BasketballViewController: UIViewController,UITableViewDataSource,UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
+        leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+        leagueDetailsViewController.type = Constants.BASKETBALL
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }
 }

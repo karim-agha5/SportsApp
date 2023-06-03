@@ -28,6 +28,13 @@ class UpcomingMatch : Decodable{
         self.event_away_team_logo = ""
         self.event_first_player_logo = ""
         self.event_second_player_logo = ""
+        
+     
+         team_key = 0
+         team_name = ""
+         team_logo = ""
+         players = [Player]()
+      
     }
     
     //football / basketball / tennis
@@ -61,5 +68,47 @@ class UpcomingMatch : Decodable{
     
     // football
     var event_final_result: String?
+    
+    
+    
+    
+    
+    
+ 
+    
+    let team_key: Int?
+    let team_name: String?
+    let team_logo: String?
+    let players: [Player]?
+  
+    
+}
+
+
+class TeamResponse: Decodable{
+    let success: Int?
+    let result: [Team]?
+}
+class Team : Decodable{
+    let team_name: String?
+    let team_logo: String?
+    
+    init(){
+        team_name = ""
+        team_logo = ""
+    }
+}
+
+class Player : Decodable{
+    let player_key: Int?
+    let player_name: String?
+    let player_number: String?
+    let player_type: String?
+    let player_age: String?
+    let player_match_played: String?
+    let player_goals: String?
+    let player_yello_cards: String?
+    let player_red_cards: String?
+    let player_image: String?
     
 }

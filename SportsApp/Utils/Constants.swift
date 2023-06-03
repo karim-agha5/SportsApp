@@ -37,16 +37,26 @@ class Constants{
     
     static let FOOTBALL_TEAMS = BASE_URL + "football/?met=Fixtures&APIkey=" + API_KEY + "&from=2023-05-31&to=2023-06-10&leagueId="
     
+    static let BASKETBALL_TEAMS = BASE_URL + "basketball/?met=Fixtures&APIkey=" + API_KEY + "&from=2023-05-31&to=2024-12-20&leagueId="
+    
+    static let CRICKET_TEAMS = BASE_URL + "cricket/?met=Fixtures&APIkey=" + API_KEY + "&from=2023-05-31&to=2023-06-10&leagueId="
+    
     static let UPCOMING_FOOTBALL_MATCHES = BASE_URL + "football/?met=Fixtures&APIkey=" + API_KEY + "&from=\(startDateAsString)&to=\(endDateAsString)&leagueId="
     
-    static let UPCOMING_BASKETBALL_MATCHES = BASE_URL + "basketball/?met=Fixtures&" + API_KEY + "&from=2023-05-29&to=2023-06-10"
+    static let UPCOMING_BASKETBALL_MATCHES = BASE_URL + "basketball/?met=Fixtures&" + API_KEY + "&from=\(startDateAsString)&to=\(endDateAsString)&leagueId="
     
-    static let UPCOMING_CRICKET_MATCHES = BASE_URL + "cricket/?met=Fixtures&" + API_KEY + "&from=2023-05-29&to=2023-06-10"
+    static let UPCOMING_CRICKET_MATCHES = BASE_URL + "cricket/?met=Fixtures&" + API_KEY + "&from=\(startDateAsString)&to=\(endDateAsString)&leagueId="
     
-    static let UPCOMING_TENNIS_MATCHES = BASE_URL + "tennis/?met=Fixtures&" + API_KEY + "&from=2023-05-29&to=2023-06-10"
+    static let UPCOMING_TENNIS_MATCHES = BASE_URL + "tennis/?met=Fixtures&" + API_KEY + "&from=\(startDateAsString)&to=\(endDateAsString)&leagueId="
     
     
     static let CURRENT_FOOTBALL_MATCHES = BASE_URL + FOOTBALL + "/?met=Livescore&APIkey=" + API_KEY + "&leagueId="
+    
+    static let CURRENT_BASKETBALL_MATCHES = BASE_URL + FOOTBALL + "/?met=Livescore&APIkey=" + API_KEY + "&leagueId="
+    
+    static let CURRENT_CRICKET_MATCHES = BASE_URL + FOOTBALL + "/?met=Livescore&APIkey=" + API_KEY + "&leagueId="
+    
+    static let CURRENT_TENNIS_MATCHES = BASE_URL + FOOTBALL + "/?met=Livescore&APIkey=" + API_KEY + "&leagueId="
     
     
     

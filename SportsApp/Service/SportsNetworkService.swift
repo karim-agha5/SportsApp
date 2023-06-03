@@ -150,8 +150,6 @@ class SportsNetworkService{
     
     
     
-    
-    
     func getRemoteUpcomingFootballMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
         let fullURL = Constants.UPCOMING_FOOTBALL_MATCHES + "\(leagueId)"
@@ -186,7 +184,7 @@ class SportsNetworkService{
     
     
     
-    func getRemoteLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+    func getRemoteFootballLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
         let fullURL = Constants.CURRENT_FOOTBALL_MATCHES + "\(leagueId)"
         
@@ -216,9 +214,44 @@ class SportsNetworkService{
     
     
     
-    func getRemoteTeams(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+    func getRemoteFootballTeams(leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
         
-        let fullURL = Constants.FOOTBALL_TEAMS + "\(leagueId)"
+        let fullURL = "https://apiv2.allsportsapi.com/football/?met=Teams&APIkey=437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7&leagueId=" + "\(leagueId)"
+        
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(TeamResponse.self, from: data!)
+                    onComplete(result.result ?? [])
+                    updateUI()
+                }
+                catch{
+                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func getRemoteBasketballUpcomingMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = Constants.UPCOMING_BASKETBALL_MATCHES + "\(leagueId)"
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -229,6 +262,66 @@ class SportsNetworkService{
                 do{
                     let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
                     onComplete(result.result ?? [])
+                    updateUI()
+                }
+                catch{
+                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+    }
+    
+    
+    
+    
+    
+    
+    func getRemoteBasketballLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = Constants.CURRENT_BASKETBALL_MATCHES + "\(leagueId)"
+        
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
+                    onComplete(result.result ?? [])
+                    updateUI()
+                }
+                catch{
+                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+        
+    }
+
+    
+    
+    
+    
+    func getRemoteBasketballTeams(leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = "https://apiv2.allsportsapi.com/basketball/?met=Teams&APIkey=437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7&leagueId=" + "\(leagueId)"
+        
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(TeamResponse.self, from: data!)
+                                        onComplete(result.result ?? [])
                     updateUI()
                 }
                 catch{

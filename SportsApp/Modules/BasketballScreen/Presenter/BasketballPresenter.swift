@@ -18,7 +18,7 @@ class BasketballPresenter : AnyBasketballPresenter{
     
     private let sportsNetworkService = SportsNetworkService()
     
-    private var basketballScreen: AnyBasketballScreen? = nil
+    private weak var basketballScreen: AnyBasketballScreen? = nil
     
     func attachView(basketballScreen: AnyBasketballScreen){
         self.basketballScreen = basketballScreen

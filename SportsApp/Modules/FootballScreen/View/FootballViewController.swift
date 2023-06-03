@@ -86,6 +86,7 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
         leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+        leagueDetailsViewController.type = Constants.FOOTBALL
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }
 }

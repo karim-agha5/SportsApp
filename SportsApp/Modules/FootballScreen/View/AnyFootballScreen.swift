@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AnyFootballScreen{
+protocol AnyFootballScreen : AnyObject{
     func storeLeaguesAsDictionaryLocally(remoteLeaguesList: Array<Dictionary<String,Any>>)
 }

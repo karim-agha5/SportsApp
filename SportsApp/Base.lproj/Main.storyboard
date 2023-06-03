@@ -293,7 +293,7 @@
                                 </cells>
                             </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wge-D4-J9x">
-                                <rect key="frame" x="0.0" y="338" width="393" height="298.33333333333326"/>
+                                <rect key="frame" x="0.0" y="338" width="393" height="213"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tXf-jQ-5nD">
@@ -307,9 +307,9 @@
                                 </prototypes>
                             </tableView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BdF-HK-8lX">
-                                <rect key="frame" x="0.0" y="656.33333333333337" width="393" height="161.66666666666663"/>
+                                <rect key="frame" x="0.0" y="571" width="393" height="247"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SD2-vj-XyA">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SD2-vj-XyA">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -317,7 +317,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gac-2U-EDW">
-                                        <rect key="frame" x="0.0" y="16.666666666666668" width="128" height="128"/>
+                                        <rect key="frame" x="0.0" y="59.666666666666664" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="c39-D1-pgI">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
@@ -327,7 +327,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jUo-BH-1ip">
-                                <rect key="frame" x="0.0" y="636.33333333333337" width="393" height="20"/>
+                                <rect key="frame" x="0.0" y="551" width="393" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -345,7 +345,7 @@
                             <constraint firstItem="MhT-y1-BTy" firstAttribute="top" secondItem="uol-Qs-BbT" secondAttribute="bottom" id="CwF-Nt-AOS"/>
                             <constraint firstItem="Wge-D4-J9x" firstAttribute="trailing" secondItem="hRR-sP-Y3i" secondAttribute="trailing" id="Ddt-ag-JXm"/>
                             <constraint firstItem="hRR-sP-Y3i" firstAttribute="trailing" secondItem="mvE-yf-Xuf" secondAttribute="trailing" constant="10" id="P6M-Gy-WCj"/>
-                            <constraint firstItem="Wge-D4-J9x" firstAttribute="height" secondItem="SbL-jt-gvq" secondAttribute="height" multiplier="0.35" id="T2U-GG-2Ov"/>
+                            <constraint firstItem="Wge-D4-J9x" firstAttribute="height" secondItem="SbL-jt-gvq" secondAttribute="height" multiplier="0.25" id="T2U-GG-2Ov"/>
                             <constraint firstItem="uol-Qs-BbT" firstAttribute="height" secondItem="SbL-jt-gvq" secondAttribute="height" multiplier="0.0246479" id="XZW-fg-0qH"/>
                             <constraint firstItem="BdF-HK-8lX" firstAttribute="trailing" secondItem="hRR-sP-Y3i" secondAttribute="trailing" id="YEB-9V-wEx"/>
                             <constraint firstItem="BdF-HK-8lX" firstAttribute="bottom" secondItem="hRR-sP-Y3i" secondAttribute="bottom" id="elg-Yv-QHo"/>

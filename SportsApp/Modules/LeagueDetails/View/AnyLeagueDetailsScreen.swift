@@ -7,7 +7,16 @@
 
 import Foundation
 
-protocol AnyLeagueDetailsScreen{
-    func storeUpcomingMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
-    func storeLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
+protocol AnyLeagueDetailsScreen : AnyObject{
+    func refreshUpcomingMatchesCollectionViews()
+    func refreshTeamsCollectionViews()
+    func refreshTableView()
+    
+    func storeUpcomingFootballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
+    func storeFootballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
+    
+    func storeUpcomingBasketballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
+    func storeBasketballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
+    func storeBasketballTeamsInArrayLocally(teams: Array<Team>)
+    
 }
