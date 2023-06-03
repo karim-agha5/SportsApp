@@ -47,7 +47,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         
         teamsCollectionview.delegate = self
         teamsCollectionview.dataSource = self
-       
+               
         
         switch type{
             case Constants.FOOTBALL: loadFootballInfo(leagueId: leagueId)
@@ -86,14 +86,20 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             self.currentGamescTableview.reloadData()
         }
     }
-    
+   /*
     private func getRemoteFootballTeams(leagueId: Int){
         let service = SportsNetworkService()
         service.getRemoteFootballTeams(leagueId: leagueId, onComplete: storeTeamsInArrayLocally,updateUI: refreshTeamsCollectionViews)
     }
+    */
+    
+    private func getRemoteFootballTeams(leagueId: Int){
+        let service = SportsNetworkService()
+        service.getRemoteTeams(type: Constants.FOOTBALL, leagueId: leagueId, onComplete: storeTeamsInArrayLocally,updateUI: refreshTeamsCollectionViews)
+    }
     
     private func getRemoteBasketballTeams(leagueId: Int){
-        leagueDetailsPresenter.getRemoteBasketballTeams(leagueId: leagueId)
+        leagueDetailsPresenter.getRemoteBasketballTeams(type: Constants.BASKETBALL,leagueId: leagueId)
     }
     
     func storeTeamsInArrayLocally(teams: Array<Team>){
@@ -107,13 +113,18 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             teamsArray.append(team)
         }
     }
-    
+    /*
     private func getRemoteFootballLiveMatches(leagueId: Int){
         leagueDetailsPresenter.getRemoteFootballLiveMatches(leagueId: leagueId, onComplete: storeFootballLiveMatchesInArrayLocally,updateUI: refreshTableView)
+    }*/
+    
+    
+    private func getRemoteFootballLiveMatches(leagueId: Int){
+        leagueDetailsPresenter.getRemoteLatestMatches(type: Constants.FOOTBALL,leagueId: leagueId)
     }
 
     private func getRemoteBasketballLiveMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteBasketballLiveMatches(leagueId: leagueId)
+        leagueDetailsPresenter.getRemoteLatestMatches(type: Constants.BASKETBALL, leagueId: leagueId)
     }
     
     func storeFootballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>){
@@ -155,9 +166,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsTableViewCell",for: indexPath) as? CustomLeagueDetailsTableViewCell
-        /*
-        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, score: upcomingMatchesArray[indexPath.item].event_final_result)
-         */
+    
         if liveMatchesArray.count > 0 {
             
             cell?.setupCell(firstLogo: liveMatchesArray[indexPath.row].home_team_logo, secondLogo: liveMatchesArray[indexPath.row].away_team_logo, firstName: liveMatchesArray[indexPath.row].event_home_team, secondName: liveMatchesArray[indexPath.row].event_away_team, score: liveMatchesArray[indexPath.row].event_final_result)
@@ -248,7 +257,4 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         return cell
     }
     
-    
-    
 }
-

@@ -77,11 +77,15 @@
                             <constraint firstItem="fck-Gc-ZIg" firstAttribute="centerX" secondItem="6f7-1D-ezc" secondAttribute="centerX" id="TVF-xg-hZ2"/>
                             <constraint firstAttribute="trailing" secondItem="jUb-uu-Fh6" secondAttribute="trailing" constant="23" id="TrE-fW-Isk"/>
                             <constraint firstItem="iLq-AV-Q0z" firstAttribute="centerX" secondItem="6f7-1D-ezc" secondAttribute="centerX" id="VCf-TO-SO5"/>
+                            <constraint firstItem="vdq-Z4-hUm" firstAttribute="top" secondItem="jUb-uu-Fh6" secondAttribute="bottom" constant="27.999999999999972" id="Yt1-Aq-NIz"/>
                             <constraint firstItem="czg-hR-Rpk" firstAttribute="centerX" secondItem="191-jv-ofs" secondAttribute="centerX" id="aGL-Tf-hgg"/>
+                            <constraint firstAttribute="bottom" secondItem="vdq-Z4-hUm" secondAttribute="bottom" constant="27" id="cnN-5t-pFt"/>
                             <constraint firstItem="fck-Gc-ZIg" firstAttribute="centerY" secondItem="6f7-1D-ezc" secondAttribute="centerY" constant="35" id="ekR-GS-FoA"/>
                             <constraint firstItem="vdq-Z4-hUm" firstAttribute="centerX" secondItem="jUb-uu-Fh6" secondAttribute="centerX" id="puD-nl-9Bn"/>
                             <constraint firstItem="jUb-uu-Fh6" firstAttribute="height" secondItem="6f7-1D-ezc" secondAttribute="height" multiplier="0.496009" id="txD-8M-Fu4"/>
+                            <constraint firstAttribute="bottom" secondItem="czg-hR-Rpk" secondAttribute="bottom" constant="27" id="uqs-n7-aYw"/>
                             <constraint firstItem="vdq-Z4-hUm" firstAttribute="top" secondItem="jUb-uu-Fh6" secondAttribute="bottom" constant="28" id="ymD-cq-EiV"/>
+                            <constraint firstItem="czg-hR-Rpk" firstAttribute="top" secondItem="191-jv-ofs" secondAttribute="bottom" constant="27.999999999999972" id="zIp-D7-yO1"/>
                             <constraint firstItem="iLq-AV-Q0z" firstAttribute="centerY" secondItem="6f7-1D-ezc" secondAttribute="centerY" constant="-35" id="zrd-43-sfr"/>
                         </constraints>
                     </view>

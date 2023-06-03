@@ -58,9 +58,11 @@ class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDe
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
         if leaguesArray.count > 0{
-         
+         /*
             cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknown", andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image ?? "")!)
+           */
             
+            cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
         }
         
         return cell ?? UITableViewCell()

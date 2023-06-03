@@ -182,11 +182,10 @@ class SportsNetworkService{
     
     
     
-    
+   /*
     
     func getRemoteFootballLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
-       // let fullURL = Constants.CURRENT_FOOTBALL_MATCHES + "\(leagueId)"
         let fullURL = "https://apiv2.allsportsapi.com/" + Constants.FOOTBALL + "/?met=Fixtures&leagueId=" + "\(leagueId)" + "&APIkey=" + Constants.API_KEY + "&from=2023-01-01&to=2023-05-23"
         
             let request = URLRequest(url: URL(string: fullURL)!)
@@ -197,7 +196,6 @@ class SportsNetworkService{
                 
                 do{
                     let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
-                    print(">>>>>>>>>>>>>>>>\(result.result)<<<<<<<<<<<<<<<<<<<<")
                     onComplete(result.result ?? [])
                     updateUI()
                 }
@@ -218,7 +216,7 @@ class SportsNetworkService{
     
     func getRemoteFootballTeams(leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
         
-        let fullURL = "https://apiv2.allsportsapi.com/football/?met=Teams&APIkey=437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7&leagueId=" + "\(leagueId)"
+        let fullURL = "https://apiv2.allsportsapi.com/football/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -243,7 +241,7 @@ class SportsNetworkService{
     }
     
     
-    
+    */
     
     
     
@@ -281,9 +279,12 @@ class SportsNetworkService{
     
     
     
-    func getRemoteBasketballLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+    func getRemoteLatestMatches(type: String,leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
-        let fullURL = Constants.CURRENT_BASKETBALL_MATCHES + "\(leagueId)"
+        //let fullURL = Constants.CURRENT_BASKETBALL_MATCHES + "\(leagueId)"
+     //   let fullURL = Constants.BASE_URL + type + "/?met=Livescore&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
+        
+        let fullURL = Constants.BASE_URL + type + "/?met=Fixtures&leagueId=" + "\(leagueId)" + "&APIkey=" + Constants.API_KEY + "&from=2023-01-01&to=2023-05-23"
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -297,7 +298,7 @@ class SportsNetworkService{
                     updateUI()
                 }
                 catch{
-                    print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                    print("Latest Matches Service -----> Unable to fetch Latest Matches' data!")
                 }
                 
             }
@@ -310,10 +311,10 @@ class SportsNetworkService{
     
     
     
-    
+    /*
     func getRemoteBasketballTeams(leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
         
-        let fullURL = "https://apiv2.allsportsapi.com/basketball/?met=Teams&APIkey=437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7&leagueId=" + "\(leagueId)"
+        let fullURL = "https://apiv2.allsportsapi.com/basketball/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -328,6 +329,34 @@ class SportsNetworkService{
                 }
                 catch{
                     print("Upcoming Matches Service -----> Unable to fetch leagues' data!")
+                }
+                
+            }
+            
+            
+            task.resume()
+        
+    }
+     */
+    
+    
+    func getRemoteTeams(type: String,leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = Constants.BASE_URL + type + "/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
+        
+            let request = URLRequest(url: URL(string: fullURL)!)
+            let session = URLSession(configuration: URLSessionConfiguration.default)
+            
+            let task = session.dataTask(with: request){
+                (data, response,error) in
+                
+                do{
+                    let result = try JSONDecoder().decode(TeamResponse.self, from: data!)
+                                        onComplete(result.result ?? [])
+                    updateUI()
+                }
+                catch{
+                    print("Get Remote Teams Service -----> Unable to fetch Remote Teams' data!")
                 }
                 
             }
