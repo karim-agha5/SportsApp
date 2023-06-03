@@ -186,7 +186,8 @@ class SportsNetworkService{
     
     func getRemoteFootballLiveMatches(leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
-        let fullURL = Constants.CURRENT_FOOTBALL_MATCHES + "\(leagueId)"
+       // let fullURL = Constants.CURRENT_FOOTBALL_MATCHES + "\(leagueId)"
+        let fullURL = "https://apiv2.allsportsapi.com/" + Constants.FOOTBALL + "/?met=Fixtures&leagueId=" + "\(leagueId)" + "&APIkey=" + Constants.API_KEY + "&from=2023-01-01&to=2023-05-23"
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -196,6 +197,7 @@ class SportsNetworkService{
                 
                 do{
                     let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: data!)
+                    print(">>>>>>>>>>>>>>>>\(result.result)<<<<<<<<<<<<<<<<<<<<")
                     onComplete(result.result ?? [])
                     updateUI()
                 }

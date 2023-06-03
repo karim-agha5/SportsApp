@@ -155,8 +155,14 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsTableViewCell",for: indexPath) as? CustomLeagueDetailsTableViewCell
-        
+        /*
         cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.item].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.item].away_team_logo, firstName: upcomingMatchesArray[indexPath.item].event_home_team, secondName: upcomingMatchesArray[indexPath.item].event_away_team, score: upcomingMatchesArray[indexPath.item].event_final_result)
+         */
+        if liveMatchesArray.count > 0 {
+            
+            cell?.setupCell(firstLogo: liveMatchesArray[indexPath.row].home_team_logo, secondLogo: liveMatchesArray[indexPath.row].away_team_logo, firstName: liveMatchesArray[indexPath.row].event_home_team, secondName: liveMatchesArray[indexPath.row].event_away_team, score: liveMatchesArray[indexPath.row].event_final_result)
+            
+        }
         
         return cell ?? UITableViewCell()
     }
@@ -222,8 +228,8 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     
     private func getFootballCustomCollectionViewCell(cell: CustomLeagueDetailsCollectionViewCell?,indexPath: IndexPath) -> CustomLeagueDetailsCollectionViewCell?{
-       
-        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.row].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.row].away_team_logo, firstName: upcomingMatchesArray[indexPath.row].event_home_team, secondName: upcomingMatchesArray[indexPath.row].event_away_team, date: upcomingMatchesArray[indexPath.row].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.row].event_time)
+           
+            cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.row].home_team_logo, secondLogo: upcomingMatchesArray[indexPath.row].away_team_logo, firstName: upcomingMatchesArray[indexPath.row].event_home_team, secondName: upcomingMatchesArray[indexPath.row].event_away_team, date: upcomingMatchesArray[indexPath.row].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.row].event_time)
         
         return cell
     }
