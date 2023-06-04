@@ -12,11 +12,8 @@ protocol AnyLeagueDetailsScreen : AnyObject{
     func refreshTeamsCollectionViews()
     func refreshTableView()
     
-    func storeUpcomingFootballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
-    func storeFootballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
-    
-    func storeUpcomingBasketballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
-    func storeBasketballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>)
-    func storeBasketballTeamsInArrayLocally(teams: Array<Team>)
+    func storeUpcomingMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>)
+    func storeLatestResultsInArrayLocally(latestResults: Array<UpcomingMatch>)
+    func storeTeamsInArrayLocally(teams: Array<Team>)
     
 }

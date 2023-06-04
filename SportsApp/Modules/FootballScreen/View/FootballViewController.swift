@@ -57,7 +57,7 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
             leagueKey = leaguesDictionary["league_key"] as? Int
             league.league_key = leagueKey
         }
-                
+                        
         leaguesArray.append(league)
     }
     
@@ -71,15 +71,6 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
         if leaguesArray.count > 0{
-            
-          /*
-            SDWebImageDownloader.shared.downloadImage(with: URL(string: leaguesArray[indexPath.item].image ?? ""), progress: nil){
-                (image, _, _, _) in
-                       if let _ = image {
-                           cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknown", andTeamImage: image!)
-                }
-            }
-            */
         
             cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
             

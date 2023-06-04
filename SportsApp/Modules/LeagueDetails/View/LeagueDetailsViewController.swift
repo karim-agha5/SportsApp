@@ -17,7 +17,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     var upcomingMatchesArray = [UpcomingMatch]()
     
-    var liveMatchesArray = [UpcomingMatch]()
+    var latestResultsArray = [UpcomingMatch]()
     
     var teamsArray = [Team]()
     
@@ -51,23 +51,33 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         
         switch type{
             case Constants.FOOTBALL: loadFootballInfo(leagueId: leagueId)
-            default: loadBasketballInfo(leagueId: leagueId)
+            case Constants.BASKETBALL: loadBasketballInfo(leagueId: leagueId)
+            case Constants.CRICKET: loadCricketInfo(leagueId: leagueId)
+            default: print("default is executed")
         }
         
         
     }
     
     private func loadFootballInfo(leagueId: Int){
-        getRemoteFootballUpcomingMatches(leagueId: leagueId)
-        getRemoteFootballLiveMatches(leagueId: leagueId)
-        getRemoteFootballTeams(leagueId: leagueId)
+        getRemoteUpcomingMatches(type: Constants.FOOTBALL, leagueId: leagueId)
+        getRemoteLatestResults(type: Constants.FOOTBALL, leagueId: leagueId)
+        getRemoteTeams(type: Constants.FOOTBALL, leagueId: leagueId)
     }
     
     private func loadBasketballInfo(leagueId: Int){
-        getRemoteBasketballUpcomingMatches(leagueId: leagueId)
-        getRemoteBasketballLiveMatches(leagueId: leagueId)
-        getRemoteBasketballTeams(leagueId: leagueId)
+        getRemoteUpcomingMatches(type: Constants.BASKETBALL, leagueId: leagueId)
+        getRemoteLatestResults(type: Constants.BASKETBALL, leagueId: leagueId)
+        getRemoteTeams(type: Constants.BASKETBALL, leagueId: leagueId)
     }
+    
+    
+    private func loadCricketInfo(leagueId: Int){
+        getRemoteUpcomingMatches(type: Constants.CRICKET, leagueId: leagueId)
+        getRemoteLatestResults(type: Constants.CRICKET, leagueId: leagueId)
+        getRemoteTeams(type: Constants.CRICKET, leagueId: leagueId)
+    }
+    
     
     func refreshUpcomingMatchesCollectionViews(){
         DispatchQueue.main.async {
@@ -86,20 +96,9 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             self.currentGamescTableview.reloadData()
         }
     }
-   /*
-    private func getRemoteFootballTeams(leagueId: Int){
-        let service = SportsNetworkService()
-        service.getRemoteFootballTeams(leagueId: leagueId, onComplete: storeTeamsInArrayLocally,updateUI: refreshTeamsCollectionViews)
-    }
-    */
     
-    private func getRemoteFootballTeams(leagueId: Int){
-        let service = SportsNetworkService()
-        service.getRemoteTeams(type: Constants.FOOTBALL, leagueId: leagueId, onComplete: storeTeamsInArrayLocally,updateUI: refreshTeamsCollectionViews)
-    }
-    
-    private func getRemoteBasketballTeams(leagueId: Int){
-        leagueDetailsPresenter.getRemoteBasketballTeams(type: Constants.BASKETBALL,leagueId: leagueId)
+    private func getRemoteTeams(type: String,leagueId: Int){
+        leagueDetailsPresenter.getRemoteTeams(type: type, leagueId: leagueId)
     }
     
     func storeTeamsInArrayLocally(teams: Array<Team>){
@@ -108,52 +107,22 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         }
     }
     
-    func storeBasketballTeamsInArrayLocally(teams: Array<Team>){
-        for team in teams{
-            teamsArray.append(team)
-        }
-    }
-    /*
-    private func getRemoteFootballLiveMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteFootballLiveMatches(leagueId: leagueId, onComplete: storeFootballLiveMatchesInArrayLocally,updateUI: refreshTableView)
-    }*/
-    
-    
-    private func getRemoteFootballLiveMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteLatestMatches(type: Constants.FOOTBALL,leagueId: leagueId)
-    }
-
-    private func getRemoteBasketballLiveMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteLatestMatches(type: Constants.BASKETBALL, leagueId: leagueId)
+    private func getRemoteLatestResults(type: String,leagueId: Int){
+        leagueDetailsPresenter.getRemoteLatestResults(type: type, leagueId: leagueId)
     }
     
-    func storeFootballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>){
-        for livematch in liveMatches{
-            liveMatchesArray.append(livematch)
+    func storeLatestResultsInArrayLocally(latestResults: Array<UpcomingMatch>) {
+        for latestResult in latestResults {
+            latestResultsArray.append(latestResult)
         }
     }
     
-    func storeBasketballLiveMatchesInArrayLocally(liveMatches: Array<UpcomingMatch>){
-        for livematch in liveMatches{
-            liveMatchesArray.append(livematch)
-        }
+    
+    private func getRemoteUpcomingMatches(type: String,leagueId: Int){
+        leagueDetailsPresenter.getRemoteUpcomingMatches(type: type, leagueId: leagueId)
     }
     
-    private func getRemoteFootballUpcomingMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteFootballUpcomingMatches(leagueId: leagueId, onComplete: storeUpcomingFootballMatchesInArrayLocally,updateUI: refreshUpcomingMatchesCollectionViews)
-    }
-    
-    private func getRemoteBasketballUpcomingMatches(leagueId: Int){
-        leagueDetailsPresenter.getRemoteBasketballUpcomingMatches(leagueId: leagueId)
-    }
-    
-    func storeUpcomingFootballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>) {
-        for upcomingMatch in upcomingMatches {
-            upcomingMatchesArray.append(upcomingMatch)
-        }
-    }
-    
-    func storeUpcomingBasketballMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>) {
+    func storeUpcomingMatchesInArrayLocally(upcomingMatches: Array<UpcomingMatch>) {
         for upcomingMatch in upcomingMatches {
             upcomingMatchesArray.append(upcomingMatch)
         }
@@ -161,16 +130,38 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return liveMatchesArray.count
+        return latestResultsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomLeagueDetailsTableViewCell",for: indexPath) as? CustomLeagueDetailsTableViewCell
     
-        if liveMatchesArray.count > 0 {
+        if latestResultsArray.count > 0 {
             
-            cell?.setupCell(firstLogo: liveMatchesArray[indexPath.row].home_team_logo, secondLogo: liveMatchesArray[indexPath.row].away_team_logo, firstName: liveMatchesArray[indexPath.row].event_home_team, secondName: liveMatchesArray[indexPath.row].event_away_team, score: liveMatchesArray[indexPath.row].event_final_result)
-            
+            switch type {
+                
+            case Constants.FOOTBALL:
+                
+                cell?.setupCell(firstLogo: latestResultsArray[indexPath.row].home_team_logo, secondLogo: latestResultsArray[indexPath.row].away_team_logo, firstName: latestResultsArray[indexPath.row].event_home_team, secondName: latestResultsArray[indexPath.row].event_away_team, score: latestResultsArray[indexPath.row].event_final_result)
+             
+                
+            case Constants.BASKETBALL:
+                
+                cell?.setupCell(firstLogo: latestResultsArray[indexPath.row].event_home_team_logo, secondLogo: latestResultsArray[indexPath.row].event_away_team_logo, firstName: latestResultsArray[indexPath.row].event_home_team, secondName: latestResultsArray[indexPath.row].event_away_team, score: latestResultsArray[indexPath.row].event_final_result)
+                
+                
+            case Constants.CRICKET:
+                
+                var score = latestResultsArray[indexPath.row].event_home_final_result ?? "N/A"
+                score += " - "
+                score += latestResultsArray[indexPath.row].event_away_final_result ?? "N/A"
+                
+                cell?.setupCell(firstLogo: latestResultsArray[indexPath.row].event_home_team_logo, secondLogo: latestResultsArray[indexPath.row].event_away_team_logo, firstName: latestResultsArray[indexPath.row].event_home_team, secondName: latestResultsArray[indexPath.row].event_away_team, score: score)
+                
+            default:
+                
+                cell?.setupCell(firstLogo: latestResultsArray[indexPath.row].home_team_logo, secondLogo: latestResultsArray[indexPath.row].away_team_logo, firstName: latestResultsArray[indexPath.row].event_home_team, secondName: latestResultsArray[indexPath.row].event_away_team, score: latestResultsArray[indexPath.row].event_final_result)
+            }
         }
         
         return cell ?? UITableViewCell()

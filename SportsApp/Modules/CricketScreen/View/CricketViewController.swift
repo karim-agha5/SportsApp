@@ -39,10 +39,24 @@ class CricketViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     private func storeLeaguesLocallyInArray(leaguesDictionary: Dictionary<String,Any>){
         let leagueName: String = leaguesDictionary["league_name"] as! String
+        var leagueLogo: String?
+        var leagueKey: Int?
         let league = League()
     
         league.title = leagueName
-        league.image = "SportImagePlaceholder"
+        
+        if leaguesDictionary["league_logo"] != nil{
+            leagueLogo = leaguesDictionary["league_logo"] as? String
+            league.image = leagueLogo ?? "SportImagePlaceholder"
+        }
+        else{
+            league.image = "SportImagePlaceholder"
+        }
+        
+        if leaguesDictionary["league_key"] != nil {
+            leagueKey = leaguesDictionary["league_key"] as? Int
+            league.league_key = leagueKey
+        }
         
         leaguesArray.append(league)
     }
@@ -57,9 +71,6 @@ class CricketViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
         if leaguesArray.count > 0{
-         /*
-            cell?.setupCell(withTeamName: self.leaguesArray[indexPath.item].title ?? "Unknown", andTeamImage: UIImage(named: self.leaguesArray[indexPath.item].image ?? "")!)
-           */
             
             cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
         }
@@ -69,6 +80,8 @@ class CricketViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
+        leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+        leagueDetailsViewController.type = Constants.CRICKET
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }
 
