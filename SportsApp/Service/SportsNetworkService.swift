@@ -146,7 +146,7 @@ class SportsNetworkService{
     
     
     func getRemoteUpcomingMatches(type: String,leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
-                
+        
         var fullURL = Constants.BASE_URL + type + "/?met=Fixtures&APIkey="
         fullURL += Constants.API_KEY + "&from=" + Constants.startDateAsString
         fullURL += "&to=" + Constants.endDateAsString + "&leagueId=" + "\(leagueId)"
@@ -213,6 +213,7 @@ class SportsNetworkService{
     
     func getRemoteTeams(type: String,leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
         
+        
         let fullURL = Constants.BASE_URL + type + "/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
         
             let request = URLRequest(url: URL(string: fullURL)!)
@@ -239,4 +240,35 @@ class SportsNetworkService{
         
     }
     
+    
+    
+    
+    func getRemoteTennnisPlayers(leagueId: Int,onComplete: @escaping (Array<Player>) -> Void,updateUI: @escaping () -> ()){
+        
+        let fullURL = Constants.BASE_URL + Constants.TENNIS + "/?met=Players&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
+        
+        let request = URLRequest(url: URL(string: fullURL)!)
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        
+        let task = session.dataTask(with: request){
+            (data, response,error) in
+            
+            do{
+                
+                guard let actualData = data
+                else{return}
+                let result = try JSONDecoder().decode(PlayerResponse.self, from: actualData)
+                
+                onComplete(result.result ?? [])
+                updateUI()
+            }
+            catch{
+                print("Get Remote Participants Service -----> Unable to fetch Remote Teams' data!")
+            }
+            
+        }
+        
+        
+        task.resume()
+    }
 }

@@ -62,7 +62,7 @@ class UpcomingMatch : Decodable{
     var event_first_player_logo: String?
     var event_second_player_logo: String?
     
-    // football - Basketball
+    // football - Basketball - tennis
     var event_final_result: String?
     
     // Cricket
@@ -83,6 +83,7 @@ class TeamResponse: Decodable{
     let success: Int?
     let result: [Team]?
 }
+
 class Team : Decodable{
     let team_name: String?
     let team_logo: String?
@@ -91,6 +92,12 @@ class Team : Decodable{
         team_name = ""
         team_logo = ""
     }
+}
+
+
+class PlayerResponse: Decodable{
+    let success: Int?
+    let result: [Player]?
 }
 
 class Player : Decodable{
@@ -104,5 +111,6 @@ class Player : Decodable{
     let player_yello_cards: String?
     let player_red_cards: String?
     let player_image: String?
+    let player_logo: String?
     
 }

@@ -16,4 +16,6 @@ protocol AnyLeagueDetailsScreen : AnyObject{
     func storeLatestResultsInArrayLocally(latestResults: Array<UpcomingMatch>)
     func storeTeamsInArrayLocally(teams: Array<Team>)
     
+    func storeTennisPlayersInArrayLocally(players: Array<Player>)
+    
 }

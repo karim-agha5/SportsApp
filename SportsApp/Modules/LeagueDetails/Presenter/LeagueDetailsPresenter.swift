@@ -13,6 +13,7 @@ protocol AnyLeagueDetailsPresenter{
     func getRemoteLatestResults(type: String,leagueId: Int)
     func getRemoteTeams(type: String, leagueId: Int)
     func getRemoteUpcomingMatches(type: String,leagueId: Int)
+    func getRemoteTennisPlayers(leagueId: Int)
 }
 
 
@@ -36,6 +37,10 @@ class LeagueDetailsPresenter : AnyLeagueDetailsPresenter{
     
     func getRemoteUpcomingMatches(type: String,leagueId: Int){
         sportsNetworkService.getRemoteUpcomingMatches(type: type, leagueId: leagueId, onComplete: leagueDetailsScreen.storeUpcomingMatchesInArrayLocally, updateUI: leagueDetailsScreen.refreshUpcomingMatchesCollectionViews)
+    }
+    
+    func getRemoteTennisPlayers(leagueId: Int){
+        sportsNetworkService.getRemoteTennnisPlayers(leagueId: leagueId, onComplete: leagueDetailsScreen.storeTennisPlayersInArrayLocally, updateUI: leagueDetailsScreen.refreshTeamsCollectionViews)
     }
     
 }

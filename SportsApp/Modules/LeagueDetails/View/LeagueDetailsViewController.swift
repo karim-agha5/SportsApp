@@ -21,6 +21,8 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     
     var teamsArray = [Team]()
     
+    var playersArray = [Player]()
+    
     private let leagueDetailsPresenter: AnyLeagueDetailsPresenter = LeagueDetailsPresenter()
     
     @IBOutlet weak var upcomingMatchesCollectionview: UICollectionView!
@@ -53,7 +55,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             case Constants.FOOTBALL: loadFootballInfo(leagueId: leagueId)
             case Constants.BASKETBALL: loadBasketballInfo(leagueId: leagueId)
             case Constants.CRICKET: loadCricketInfo(leagueId: leagueId)
-            default: print("default is executed")
+            default: loadTennisInfo(leagueId: leagueId)
         }
         
         
@@ -76,6 +78,12 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         getRemoteUpcomingMatches(type: Constants.CRICKET, leagueId: leagueId)
         getRemoteLatestResults(type: Constants.CRICKET, leagueId: leagueId)
         getRemoteTeams(type: Constants.CRICKET, leagueId: leagueId)
+    }
+    
+    private func loadTennisInfo(leagueId: Int){
+        getRemoteUpcomingMatches(type: Constants.TENNIS, leagueId: leagueId)
+        getRemoteLatestResults(type: Constants.TENNIS, leagueId: leagueId)
+        getRemotePlayers(leagueId: leagueId)
     }
     
     
@@ -101,9 +109,19 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         leagueDetailsPresenter.getRemoteTeams(type: type, leagueId: leagueId)
     }
     
+    private func getRemotePlayers(leagueId: Int){
+        leagueDetailsPresenter.getRemoteTennisPlayers(leagueId: leagueId)
+    }
+    
     func storeTeamsInArrayLocally(teams: Array<Team>){
         for team in teams{
             teamsArray.append(team)
+        }
+    }
+    
+    func storeTennisPlayersInArrayLocally(players: Array<Player>) {
+        for player in players {
+            playersArray.append(player)
         }
     }
     
@@ -172,7 +190,12 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             return upcomingMatchesArray.count
         }
         else{
-            return teamsArray.count
+            if type == Constants.TENNIS{
+                return playersArray.count
+            }
+            else{
+                return teamsArray.count
+            }
         }
     }
     
@@ -191,7 +214,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
                 case Constants.CRICKET:
                     cell = getCricketCustomCollectionViewCell(cell: cell, indexPath: indexPath)
                 default:
-                    cell = getFootballCustomCollectionViewCell(cell: cell, indexPath: indexPath)
+                    cell = getTennisCustomCollectionViewCell(cell: cell, indexPath: indexPath)
             }
             
             
@@ -203,10 +226,30 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomTeamCollectionViewCell", for: indexPath) as? CustomTeamCollectionViewCell
             
             switch type{
-                case Constants.FOOTBALL:
-                if teamsArray.count > 0 {cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)}
+              /*  case Constants.FOOTBALL:
+                
+                if teamsArray.count > 0 {
+                    cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)
+                    
+                }
+                
                 default:
                 if teamsArray.count > 0{cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)}
+               */
+                
+            case Constants.TENNIS:
+                
+                if playersArray.count > 0 {
+                    cell?.setupCell(teamLogo: playersArray[indexPath.row].player_logo)
+                }
+                
+            default:
+                
+                if teamsArray.count > 0 {
+                    cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)
+                    
+                }
+                
             }
             
             return cell ?? CustomTeamCollectionViewCell()
@@ -244,6 +287,13 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     private func getCricketCustomCollectionViewCell(cell: CustomLeagueDetailsCollectionViewCell?,indexPath: IndexPath) -> CustomLeagueDetailsCollectionViewCell?{
        
         cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.row].event_home_team_logo, secondLogo: upcomingMatchesArray[indexPath.row].event_away_team_logo, firstName: upcomingMatchesArray[indexPath.row].event_home_team, secondName: upcomingMatchesArray[indexPath.row].event_away_team, date: upcomingMatchesArray[indexPath.row].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.row].event_time)
+        
+        return cell
+    }
+    
+    private func getTennisCustomCollectionViewCell(cell: CustomLeagueDetailsCollectionViewCell?,indexPath: IndexPath) -> CustomLeagueDetailsCollectionViewCell?{
+       
+        cell?.setupCell(firstLogo: upcomingMatchesArray[indexPath.row].event_first_player_logo, secondLogo: upcomingMatchesArray[indexPath.row].event_second_player_logo, firstName: upcomingMatchesArray[indexPath.row].event_first_player, secondName: upcomingMatchesArray[indexPath.row].event_second_player, date: upcomingMatchesArray[indexPath.row].event_date, score: "N/A - N/A", time: upcomingMatchesArray[indexPath.row].event_time)
         
         return cell
     }
