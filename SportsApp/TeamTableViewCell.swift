@@ -10,12 +10,14 @@ import SDWebImage
 
 class TeamTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var customView: UIView!
     
     @IBOutlet weak var teamImageView: UIImageView!
     
     @IBOutlet weak var teamLabel: UILabel!
     
     func setupCell(withTeamName teamName: String, andTeamImageUrl teamImageUrl: String){
+        customView.layer.cornerRadius = 20
         self.teamImageView.layer.masksToBounds = false
         self.teamImageView.layer.cornerRadius = (self.teamImageView.frame.size.width + self.teamImageView.frame.size.height) / 4
         self.teamImageView.clipsToBounds = true

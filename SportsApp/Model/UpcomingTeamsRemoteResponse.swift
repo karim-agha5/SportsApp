@@ -72,10 +72,6 @@ class UpcomingMatch : Decodable{
     
     
     
-    
-    
- 
-    
 }
 
 
@@ -85,12 +81,16 @@ class TeamResponse: Decodable{
 }
 
 class Team : Decodable{
-    let team_name: String?
-    let team_logo: String?
+    var team_key: String?
+    var team_name: String?
+    var team_logo: String?
+    var players: [Player]
     
     init(){
+        team_key = ""
         team_name = ""
         team_logo = ""
+        players = []
     }
 }
 
@@ -101,16 +101,30 @@ class PlayerResponse: Decodable{
 }
 
 class Player : Decodable{
-    let player_key: Int?
-    let player_name: String?
-    let player_number: String?
-    let player_type: String?
-    let player_age: String?
-    let player_match_played: String?
-    let player_goals: String?
-    let player_yello_cards: String?
-    let player_red_cards: String?
-    let player_image: String?
-    let player_logo: String?
+    var player_key: Int?
+    var player_name: String?
+    var player_number: String?
+    var player_type: String?
+    var player_age: String?
+    var player_match_played: String?
+    var player_goals: String?
+    var player_yello_cards: String?
+    var player_red_cards: String?
+    var player_image: String?
+    var player_logo: String?
     
+    
+    init(){
+        self.player_key = 0
+        self.player_name = ""
+        self.player_number = ""
+        self.player_type = ""
+        self.player_age = ""
+        self.player_match_played = ""
+        self.player_goals = ""
+        self.player_yello_cards = ""
+        self.player_red_cards = ""
+        self.player_image = ""
+        self.player_logo = ""
+    }
 }

@@ -185,6 +185,13 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
         return cell ?? UITableViewCell()
     }
     
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+        navigationController?.pushViewController(teamDetailsViewController, animated: true)
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == upcomingMatchesCollectionview) {
             return upcomingMatchesArray.count
@@ -226,16 +233,6 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomTeamCollectionViewCell", for: indexPath) as? CustomTeamCollectionViewCell
             
             switch type{
-              /*  case Constants.FOOTBALL:
-                
-                if teamsArray.count > 0 {
-                    cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)
-                    
-                }
-                
-                default:
-                if teamsArray.count > 0{cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)}
-               */
                 
             case Constants.TENNIS:
                 
@@ -247,7 +244,6 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
                 
                 if teamsArray.count > 0 {
                     cell?.setupCell(teamLogo: teamsArray[indexPath.row].team_logo)
-                    
                 }
                 
             }
@@ -266,6 +262,17 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             let width = self.upcomingMatchesCollectionview.bounds.width * 0.30
             let height = self.upcomingMatchesCollectionview.bounds.height * 0.5
             return CGSize(width: width, height: height)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == teamsCollectionview {
+            let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+            teamDetailsViewController.teamId = teamsArray[indexPath.row].team_key
+            teamDetailsViewController.leagueId = self.leagueId
+            teamDetailsViewController.playersArray = self.playersArray
+            teamDetailsViewController.teamLogo = teamsArray[indexPath.row].team_logo
+            navigationController?.pushViewController(teamDetailsViewController, animated: true)
         }
     }
     

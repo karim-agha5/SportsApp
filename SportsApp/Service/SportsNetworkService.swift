@@ -213,7 +213,6 @@ class SportsNetworkService{
     
     func getRemoteTeams(type: String,leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
         
-        
         let fullURL = Constants.BASE_URL + type + "/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
         
             let request = URLRequest(url: URL(string: fullURL)!)
@@ -226,7 +225,7 @@ class SportsNetworkService{
                     guard let actualData = data
                     else{return}
                     let result = try JSONDecoder().decode(TeamResponse.self, from: actualData)
-                                        onComplete(result.result ?? [])
+                    onComplete(result.result ?? [])
                     updateUI()
                 }
                 catch{
@@ -239,9 +238,6 @@ class SportsNetworkService{
             task.resume()
         
     }
-    
-    
-    
     
     func getRemoteTennnisPlayers(leagueId: Int,onComplete: @escaping (Array<Player>) -> Void,updateUI: @escaping () -> ()){
         
