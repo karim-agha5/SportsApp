@@ -128,8 +128,7 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
                         self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                         self.btnFavorite.tintColor = UIColor.red
 
-                    }
-
+            }
         }
     }
     

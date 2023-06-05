@@ -25,6 +25,6 @@ class TennisPresenter : AnyTennisPresenter{
     }
     
     func getRemoteTennisLeagues(onComplete: @escaping (Array<Dictionary<String, Any>>) -> Void,updateUI: @escaping () -> ()) {
-        sportsNetworkService.getRemoteTennisLeagues(onComplete: onComplete,updateUI: updateUI)
+        sportsNetworkService.getRemoteLeagues(sportsType: Constants.TENNIS,onComplete: onComplete,updateUI: updateUI)
     }
 }

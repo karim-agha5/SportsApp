@@ -9,8 +9,8 @@ import Foundation
 
 class SportsNetworkService{
     
-    func getRemoteFootballLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
-        let fullURL = Constants.BASE_URL + Constants.FOOTBALL + Constants.PRE_API_KEY + Constants.API_KEY
+    func getRemoteLeagues(sportsType: String,onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
+        let fullURL = Constants.BASE_URL + sportsType + Constants.PRE_API_KEY + Constants.API_KEY
         
             let request = URLRequest(url: URL(string: fullURL)!)
             let session = URLSession(configuration: URLSessionConfiguration.default)
@@ -40,107 +40,6 @@ class SportsNetworkService{
             
             task.resume()
     }
-    
-    
-    func getRemoteBasketballLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
-        let fullURL = Constants.BASE_URL + Constants.BASKETBALL + Constants.PRE_API_KEY + Constants.API_KEY
-        
-            let request = URLRequest(url: URL(string: fullURL)!)
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            
-            let task = session.dataTask(with: request){
-                (data, response,error) in
-                
-                do{
-                    
-                    guard let actualData = data
-                    else{return}
-                    
-                    let json = try JSONSerialization.jsonObject(with: actualData) as! Dictionary<String,Any>
-                   
-                    let remoteLeaguesList = json["result"] as! Array<Dictionary<String,Any>>
-                
-                    onComplete(remoteLeaguesList)
-                    updateUI()
-                  
-                }
-                catch{
-                    print("Basketball Service -----> Unable to fetch leagues' data!")
-                }
-                
-            }
-            
-            
-            task.resume()
-    }
-    
-    func getRemoteCricketLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
-        let fullURL = Constants.BASE_URL + Constants.CRICKET + Constants.PRE_API_KEY + Constants.API_KEY
-        
-            let request = URLRequest(url: URL(string: fullURL)!)
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            
-            let task = session.dataTask(with: request){
-                (data, response,error) in
-                
-                do{
-                    
-                    guard let actualData = data
-                    else{return}
-                    
-                    let json = try JSONSerialization.jsonObject(with: actualData) as! Dictionary<String,Any>
-                   
-                    let remoteLeaguesList = json["result"] as! Array<Dictionary<String,Any>>
-                    
-                    onComplete(remoteLeaguesList)
-                    updateUI()
-                  
-                }
-                catch{
-                    print("Cricket Service -----> Unable to fetch leagues' data!")
-                }
-                
-            }
-            
-            
-            task.resume()
-    }
-    
-    
-    func getRemoteTennisLeagues(onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
-        let fullURL = Constants.BASE_URL + Constants.TENNIS + Constants.PRE_API_KEY + Constants.API_KEY
-      
-            let request = URLRequest(url: URL(string: fullURL)!)
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            
-            let task = session.dataTask(with: request){
-                (data, response,error) in
-                
-                do{
-                    
-                    guard let actualData = data
-                    else{return}
-                    
-                    let json = try JSONSerialization.jsonObject(with: actualData) as! Dictionary<String,Any>
-                   
-                    let remoteLeaguesList = json["result"] as! Array<Dictionary<String,Any>>
-                
-                    onComplete(remoteLeaguesList)
-                    updateUI()
-                  
-                }
-                catch{
-                    print("Tennis Service -----> Unable to fetch leagues' data!")
-                }
-                
-            }
-            
-            
-            task.resume()
-    }
-    
-    
-    
     
     
     

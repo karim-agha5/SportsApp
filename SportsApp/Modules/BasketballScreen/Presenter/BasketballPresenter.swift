@@ -25,6 +25,6 @@ class BasketballPresenter : AnyBasketballPresenter{
     }
     
     func getRemoteBasketballLeagues(onComplete: @escaping (Array<Dictionary<String, Any>>) -> Void,updateUI: @escaping () -> ()) {
-        sportsNetworkService.getRemoteBasketballLeagues(onComplete: onComplete,updateUI: updateUI)
+        sportsNetworkService.getRemoteLeagues(sportsType: Constants.BASKETBALL,onComplete: onComplete,updateUI: updateUI)
     }
 }
