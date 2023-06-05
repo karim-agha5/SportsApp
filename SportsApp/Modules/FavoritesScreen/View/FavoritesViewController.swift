@@ -48,7 +48,6 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO navigate to teams details
         let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
         teamDetailsViewController.teamId = "\(teamsArray[indexPath.row].teamId ?? "-1")"
         teamDetailsViewController.leagueId = teamsArray[indexPath.row].leagueId
