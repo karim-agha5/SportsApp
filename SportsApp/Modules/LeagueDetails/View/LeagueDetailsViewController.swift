@@ -272,6 +272,7 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             teamDetailsViewController.leagueId = self.leagueId
             teamDetailsViewController.playersArray = self.playersArray
             teamDetailsViewController.teamLogo = teamsArray[indexPath.row].team_logo
+            teamDetailsViewController.playersArray = teamsArray[indexPath.row].players ?? []
             navigationController?.pushViewController(teamDetailsViewController, animated: true)
         }
     }

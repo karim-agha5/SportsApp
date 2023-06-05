@@ -9,7 +9,7 @@ import UIKit
 
 class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
-    var teamId: String?
+    var teamId: Int?
     
     var leagueId: Int?
     

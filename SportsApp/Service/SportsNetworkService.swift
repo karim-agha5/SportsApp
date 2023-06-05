@@ -229,6 +229,7 @@ class SportsNetworkService{
                     updateUI()
                 }
                 catch{
+                    print("\(error.localizedDescription)")
                     print("Get Remote Teams Service -----> Unable to fetch Remote Teams' data!")
                 }
                 

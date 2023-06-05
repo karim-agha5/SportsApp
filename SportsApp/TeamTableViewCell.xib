@@ -18,18 +18,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ce3-9c-OYZ">
-                        <rect key="frame" x="10" y="10" width="299" height="150"/>
+                        <rect key="frame" x="10" y="10" width="299" height="80"/>
                         <color key="backgroundColor" systemColor="systemRedColor"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZVE-MV-fH4">
-                        <rect key="frame" x="10" y="10" width="200" height="150"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZVE-MV-fH4">
+                        <rect key="frame" x="10" y="10" width="80" height="80"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="150" id="T5d-LW-y08"/>
-                            <constraint firstAttribute="width" constant="200" id="qbB-ZE-67W"/>
+                            <constraint firstAttribute="height" constant="80" id="T5d-LW-y08"/>
+                            <constraint firstAttribute="width" constant="80" id="qbB-ZE-67W"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRX-FN-394">
-                        <rect key="frame" x="220" y="10" width="99" height="150"/>
+                        <rect key="frame" x="100" y="10" width="219" height="80"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" systemColor="systemBackgroundColor"/>
                         <nil key="highlightedColor"/>
