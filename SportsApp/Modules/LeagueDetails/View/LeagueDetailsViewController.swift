@@ -268,9 +268,11 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == teamsCollectionview {
             let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
-            teamDetailsViewController.teamId = teamsArray[indexPath.row].team_key
-            teamDetailsViewController.leagueId = self.leagueId
+            teamDetailsViewController.teamId = "\(teamsArray[indexPath.row].team_key ?? -1)"
+            teamDetailsViewController.leagueId = "\(self.leagueId)"
             teamDetailsViewController.playersArray = self.playersArray
+            teamDetailsViewController.sportType = self.type
+            teamDetailsViewController.teamName = teamsArray[indexPath.row].team_name
             teamDetailsViewController.teamLogo = teamsArray[indexPath.row].team_logo
             teamDetailsViewController.playersArray = teamsArray[indexPath.row].players ?? []
             navigationController?.pushViewController(teamDetailsViewController, animated: true)

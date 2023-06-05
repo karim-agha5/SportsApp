@@ -9,11 +9,17 @@ import UIKit
 
 class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
 
-    var teamId: Int?
+    var sportType: String?
     
-    var leagueId: Int?
+    var teamId: String?
+    
+    var teamName: String?
+    
+    var leagueId: String?
     
     var teamLogo: String?
+    
+    var isHeartFilled: Bool?
     
     var playersArray: [Player] = []
     
@@ -30,11 +36,29 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
         playersCollectionView.dataSource = self
         playersCollectionView.delegate = self
         playersCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
-        //initArray()
-      //  ivTeamLogo.image = UIImage(named: "FootballImage")
         loadTeamImage()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if DatabaseService.shared.isTeamInFavs(teamKey: teamId ?? "-1"){
+            
+            isHeartFilled = true
+            
+            self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.btnFavorite.tintColor = UIColor.red
+            
+            }
+        
+            else{
+            
+                isHeartFilled = false
+                self.btnFavorite.setImage(UIImage(systemName: "heart"), for: .normal)
+
+        }
+
+    }
+    
     
     private func loadTeamImage(){
         self.ivTeamLogo.sd_setImage(with: URL(string: teamLogo ?? ""), placeholderImage: UIImage(named: "SportImagePlaceholder")!){
@@ -94,6 +118,35 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
     
     @IBAction func addToFavorites(_ sender: Any) {
         self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        
+        if isHeartFilled! {
+
+                        // Delete team from favorites
+
+            if DatabaseService.shared.deleteFromFavs(teamKey: teamId ?? "-1") {
+
+                            isHeartFilled = false
+
+                            self.btnFavorite.setImage(UIImage(systemName: "heart"), for: .normal)
+
+                        }
+
+                    } else {
+
+                        // Add team to favorites
+
+                        if DatabaseService.shared.insertToFavs(sportType, teamId ?? "-1", teamName ?? "Unknown", teamLogo, leagueId ?? "-1") {
+                            
+                            let list = DatabaseService.shared.fetchFavs()
+                            
+                            isHeartFilled = true
+
+                            self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                            self.btnFavorite.tintColor = UIColor.red
+
+                        }
+
+                    }
     }
     
 }
