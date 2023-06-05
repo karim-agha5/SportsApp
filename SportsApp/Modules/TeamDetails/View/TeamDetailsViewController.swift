@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,AnyTeamDetailsScreen {
 
     var sportType: String?
     
@@ -23,6 +23,8 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
     
     var playersArray: [Player] = []
     
+    private let teamDetailsPresenter: AnyTeamDetailsPresenter = TeamDetailsPresenter()
+    
     @IBOutlet weak var btnFavorite: UIButton!
     
     @IBOutlet weak var ivTeamLogo: UIImageView!
@@ -32,6 +34,7 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        teamDetailsPresenter.attachView(teamDetailsScreen: self)
         playersCollectionView.register(UINib(nibName: "CustomPlayerDetailsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CustomPlayerDetailsCollectionViewCell")
         playersCollectionView.dataSource = self
         playersCollectionView.delegate = self
@@ -41,7 +44,7 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
 
     override func viewDidAppear(_ animated: Bool) {
         
-        if DatabaseService.shared.isTeamInFavs(teamKey: teamId ?? "-1"){
+        if teamDetailsPresenter.isTeamInFavs(teamKey: teamId ?? "-1") {
             
             isHeartFilled = true
             
@@ -72,17 +75,6 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
             DispatchQueue.main.async {
                 self.ivTeamLogo.image = image
             }
-        }
-    }
-    
-    private func initArray(){
-        let player = Player()
-        player.player_name = "Luka Modric"
-        player.player_age = "38"
-        player.player_image = "SportImagePlaceholder"
-        
-        for _ in 1...20{
-            playersArray.append(player)
         }
     }
     
@@ -119,32 +111,26 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
         
         if isHeartFilled! {
 
-                        // Delete team from favorites
+            if teamDetailsPresenter.deleteFromFavs(teamKey: teamId ?? "-1") {
 
-            if DatabaseService.shared.deleteFromFavs(teamKey: teamId ?? "-1") {
+                isHeartFilled = false
 
-                            isHeartFilled = false
-
-                            self.btnFavorite.setImage(UIImage(systemName: "heart"), for: .normal)
-
-                        }
-
-                    } else {
-
-                        // Add team to favorites
-
-                        if DatabaseService.shared.insertToFavs(sportType, teamId ?? "-1", teamName ?? "Unknown", teamLogo, leagueId ?? "-1") {
-                            
-                            let list = DatabaseService.shared.fetchFavs()
-                            
-                            isHeartFilled = true
-
-                            self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-                            self.btnFavorite.tintColor = UIColor.red
-
-                        }
+                self.btnFavorite.setImage(UIImage(systemName: "heart"), for: .normal)
 
                     }
+
+                } else {
+
+                    if teamDetailsPresenter.insertToFavs(sportType, teamId ?? "-1", teamName ?? "Unknown", teamLogo, leagueId ?? "-1"){
+                                                        
+                        isHeartFilled = true
+
+                        self.btnFavorite.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                        self.btnFavorite.tintColor = UIColor.red
+
+                    }
+
+        }
     }
     
 }

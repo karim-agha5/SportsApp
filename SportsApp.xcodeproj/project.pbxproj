@@ -25,6 +25,8 @@
 		8A4FD0FC2A2E4773001C3909 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD0FB2A2E4773001C3909 /* DatabaseService.swift */; };
 		8A4FD0FE2A2E890F001C3909 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD0FD2A2E890F001C3909 /* FavoritesPresenter.swift */; };
 		8A4FD1032A2E8D67001C3909 /* AnyFavoritesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD1022A2E8D67001C3909 /* AnyFavoritesScreen.swift */; };
+		8A4FD1052A2EA134001C3909 /* TeamDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD1042A2EA134001C3909 /* TeamDetailsPresenter.swift */; };
+		8A4FD1072A2EA176001C3909 /* AnyTeamDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD1062A2EA176001C3909 /* AnyTeamDetailsScreen.swift */; };
 		8A5A92102A27CBA900B62797 /* LeagueDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A920F2A27CBA900B62797 /* LeagueDetailsPresenter.swift */; };
 		8A5A92122A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A92112A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift */; };
 		8A70E6B12A1E9BDC0081F266 /* BasketballPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A70E6B02A1E9BDC0081F266 /* BasketballPresenter.swift */; };
@@ -99,6 +101,8 @@
 		8A4FD0FB2A2E4773001C3909 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		8A4FD0FD2A2E890F001C3909 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		8A4FD1022A2E8D67001C3909 /* AnyFavoritesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFavoritesScreen.swift; sourceTree = "<group>"; };
+		8A4FD1042A2EA134001C3909 /* TeamDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsPresenter.swift; sourceTree = "<group>"; };
+		8A4FD1062A2EA176001C3909 /* AnyTeamDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTeamDetailsScreen.swift; sourceTree = "<group>"; };
 		8A5A920F2A27CBA900B62797 /* LeagueDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsPresenter.swift; sourceTree = "<group>"; };
 		8A5A92112A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLeagueDetailsScreen.swift; sourceTree = "<group>"; };
 		8A70E6B02A1E9BDC0081F266 /* BasketballPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballPresenter.swift; sourceTree = "<group>"; };
@@ -470,6 +474,7 @@
 		8AFA1E892A2D1085006C0749 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				8A4FD1042A2EA134001C3909 /* TeamDetailsPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				8AFA1E8B2A2D10B4006C0749 /* TeamDetailsViewController.swift */,
 				8AFA1E8D2A2D1542006C0749 /* CustomPlayerDetailsCollectionViewCell.swift */,
 				8AFA1E8E2A2D1542006C0749 /* CustomPlayerDetailsCollectionViewCell.xib */,
+				8A4FD1062A2EA176001C3909 /* AnyTeamDetailsScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -746,8 +752,10 @@
 				8A83DAD22A26B61000DD7294 /* CustomLeagueDetailsCollectionViewCell.swift in Sources */,
 				8A5A92102A27CBA900B62797 /* LeagueDetailsPresenter.swift in Sources */,
 				8AC4B2D12A28312B00661E38 /* CustomLeagueDetailsTableViewCell.swift in Sources */,
+				8A4FD1072A2EA176001C3909 /* AnyTeamDetailsScreen.swift in Sources */,
 				8A70E6B12A1E9BDC0081F266 /* BasketballPresenter.swift in Sources */,
 				8AE4EADE2A2013D500B175E6 /* LeagueDetailsViewController.swift in Sources */,
+				8A4FD1052A2EA134001C3909 /* TeamDetailsPresenter.swift in Sources */,
 				8A4BF0A32A17DD0000DA2F2A /* SportsViewController.swift in Sources */,
 				8AA94D2E2A198F1600A0CB91 /* TeamTableViewCell.swift in Sources */,
 				8A70E6B72A1EFC160081F266 /* AnyCricketScreen.swift in Sources */,

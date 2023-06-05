@@ -56,7 +56,6 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
         teamDetailsViewController.teamName = teamsArray[indexPath.row].name
         teamDetailsViewController.teamLogo = teamsArray[indexPath.row].image
         navigationController?.pushViewController(teamDetailsViewController, animated: true)
-        print("I'm being clicked!")
     }
     
     
