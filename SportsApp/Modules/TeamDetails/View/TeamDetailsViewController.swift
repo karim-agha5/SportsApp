@@ -51,10 +51,8 @@ class TeamDetailsViewController: UIViewController,UICollectionViewDelegate,UICol
             }
         
             else{
-            
                 isHeartFilled = false
                 self.btnFavorite.setImage(UIImage(systemName: "heart"), for: .normal)
-
         }
 
     }

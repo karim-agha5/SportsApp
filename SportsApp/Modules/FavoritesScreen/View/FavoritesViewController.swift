@@ -9,6 +9,8 @@ import UIKit
 
 class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    
+    private let favoritesPresenter: FavoritesPresenter = FavoritesPresenter()
     private var teamsArray: [TeamEntity] = []
     
     @IBOutlet weak var favoritesTableView: UITableView!
@@ -19,7 +21,6 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
         favoritesTableView.dataSource = self
         favoritesTableView.delegate = self
         initArray()
-        print("inside viewDidLoad , size = \(teamsArray.count)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -27,7 +28,7 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     private func initArray(){
-        self.teamsArray = DatabaseService.shared.fetchFavs() ?? []
+        teamsArray = favoritesPresenter.fetchFavs() ?? []
         favoritesTableView.reloadData()
     }
     
@@ -47,32 +48,50 @@ class FavoritesViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to delete this team?", preferredStyle: .alert)
-            
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-                DatabaseService.shared.deleteFromFavs(teamKey: self.teamsArray[indexPath.row].teamId!)
-                self.teamsArray.remove(at: indexPath.row)
-                self.favoritesTableView.reloadData()
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alertController.addAction(deleteAction)
-            alertController.addAction(cancelAction)
-            
-            alertController.view.tintColor = .red
-            
-            // Change the tint color of the cancel button to black
-            cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
-        
-            if let cell = tableView.cellForRow(at: indexPath) {
-               alertController.popoverPresentationController?.sourceView = cell
-               alertController.popoverPresentationController?.sourceRect = cell.bounds
-           }
-           
-           present(alertController, animated: true, completion: nil)
-        
         // TODO navigate to teams details
+        let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
+        teamDetailsViewController.teamId = "\(teamsArray[indexPath.row].teamId ?? "-1")"
+        teamDetailsViewController.leagueId = teamsArray[indexPath.row].leagueId
+        teamDetailsViewController.playersArray = []
+        teamDetailsViewController.sportType = teamsArray[indexPath.row].sportType
+        teamDetailsViewController.teamName = teamsArray[indexPath.row].name
+        teamDetailsViewController.teamLogo = teamsArray[indexPath.row].image
+        navigationController?.pushViewController(teamDetailsViewController, animated: true)
+        print("I'm being clicked!")
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            let alertController = UIAlertController(title: "Deleting \(teamsArray[indexPath.row].name ?? "Unknown")", message: "Are you sure you want to delete this team?", preferredStyle: .alert)
+                
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                    self.favoritesPresenter.deleteFromFavs(teamKey: self.teamsArray[indexPath.row].teamId!)
+                    self.teamsArray.remove(at: indexPath.row)
+                    self.favoritesTableView.reloadData()
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alertController.addAction(deleteAction)
+                alertController.addAction(cancelAction)
+                
+                alertController.view.tintColor = .red
+                
+                cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+            
+                if let cell = tableView.cellForRow(at: indexPath) {
+                   alertController.popoverPresentationController?.sourceView = cell
+                   alertController.popoverPresentationController?.sourceRect = cell.bounds
+               }
+               
+               present(alertController, animated: true, completion: nil)
+        }
     }
 }

@@ -8,10 +8,13 @@
 import UIKit
 import SDWebImage
 
-class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,AnyFootballScreen {
+class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,AnyFootballScreen {
     
+    private var filteredLeaguesArray = [League]()
     private var leaguesArray = [League]()
     private var footballPresenter: AnyFootballPresenter = FootballPresenter()
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var footballTeamsTableView: UITableView!
     
@@ -22,6 +25,28 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
         footballTeamsTableView.register(UINib(nibName: "TeamTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         footballTeamsTableView.dataSource = self
         footballTeamsTableView.delegate = self
+        searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterContentForSearchText(searchText)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        filterContentForSearchText("")
+        searchBar.resignFirstResponder()
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        if searchText.isEmpty {
+            filteredLeaguesArray = leaguesArray
+        } else {
+            filteredLeaguesArray = leaguesArray.filter { league in
+                return league.title?.lowercased().contains(searchText.lowercased()) ?? false
+            }
+        }
+        footballTeamsTableView.reloadData()
     }
 
     private func getRemoteLeagues(){
@@ -63,25 +88,34 @@ class FootballViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leaguesArray.count
+        if filteredLeaguesArray.isEmpty {
+                return leaguesArray.count
+            } else {
+                return filteredLeaguesArray.count
+            }
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
-        if leaguesArray.count > 0{
+        if filteredLeaguesArray.isEmpty {
+                cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
+            } else {
+                cell?.setupCell(withTeamName: filteredLeaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: filteredLeaguesArray[indexPath.item].image ?? "")
+            }
         
-            cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
-            
-        }
         return cell ?? UITableViewCell()
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
-        leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+        if filteredLeaguesArray.isEmpty {
+            leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+            } else {
+                leagueDetailsViewController.leagueId = filteredLeaguesArray[indexPath.item].league_key ?? -1
+            }
         leagueDetailsViewController.type = Constants.FOOTBALL
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }

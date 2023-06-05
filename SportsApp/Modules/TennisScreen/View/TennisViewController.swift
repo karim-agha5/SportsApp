@@ -7,12 +7,15 @@
 
 import UIKit
 
-class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,AnyTennisScreen {
+class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,AnyTennisScreen {
 
+    private var filteredLeaguesArray = [League]()
     private var tennisPresenter: AnyTennisPresenter = TennisPresenter()
     private var leaguesArray = [League]()
     
     @IBOutlet weak var tennisTableView: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +24,28 @@ class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDe
         tennisTableView.register(UINib(nibName: "TeamTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         tennisTableView.dataSource = self
         tennisTableView.delegate = self
+        searchBar.delegate = self
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterContentForSearchText(searchText)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        filterContentForSearchText("")
+        searchBar.resignFirstResponder()
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+        if searchText.isEmpty {
+            filteredLeaguesArray = leaguesArray
+        } else {
+            filteredLeaguesArray = leaguesArray.filter { league in
+                return league.title?.lowercased().contains(searchText.lowercased()) ?? false
+            }
+        }
+        tennisTableView.reloadData()
     }
     
     private func getRemoteLeagues(){
@@ -57,20 +82,25 @@ class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDe
             leagueKey = leaguesDictionary["league_key"] as? Int
             league.league_key = leagueKey
         }
-        print(">>>>>>>>>>>>>>>>> tennis league id = \(league.league_key) <<<<<<<<<<<<<<<<<<")
         leaguesArray.append(league)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        leaguesArray.count
+        if filteredLeaguesArray.isEmpty {
+            return leaguesArray.count
+            } else {
+            return filteredLeaguesArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath) as? TeamTableViewCell
         
-        if leaguesArray.count > 0{
-            cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
+        if filteredLeaguesArray.isEmpty {
+                cell?.setupCell(withTeamName: leaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: leaguesArray[indexPath.item].image ?? "")
+            } else {
+                cell?.setupCell(withTeamName: filteredLeaguesArray[indexPath.item].title ?? "Unknown", andTeamImageUrl: filteredLeaguesArray[indexPath.item].image ?? "")
         }
         
         return cell ?? UITableViewCell()
@@ -78,7 +108,11 @@ class TennisViewController: UIViewController,UITableViewDataSource,UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let leagueDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "LeagueDetailsViewController") as! LeagueDetailsViewController
-        leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+        if filteredLeaguesArray.isEmpty {
+            leagueDetailsViewController.leagueId = leaguesArray[indexPath.item].league_key ?? -1
+            } else {
+                leagueDetailsViewController.leagueId = filteredLeaguesArray[indexPath.item].league_key ?? -1
+            }
         leagueDetailsViewController.type = Constants.TENNIS
         navigationController?.pushViewController(leagueDetailsViewController, animated: true)
     }

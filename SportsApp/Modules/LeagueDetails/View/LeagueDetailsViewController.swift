@@ -270,7 +270,6 @@ class LeagueDetailsViewController: UIViewController,UITableViewDelegate,UITableV
             let teamDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "TeamDetailsViewController") as! TeamDetailsViewController
             teamDetailsViewController.teamId = "\(teamsArray[indexPath.row].team_key ?? -1)"
             teamDetailsViewController.leagueId = "\(self.leagueId)"
-            teamDetailsViewController.playersArray = self.playersArray
             teamDetailsViewController.sportType = self.type
             teamDetailsViewController.teamName = teamsArray[indexPath.row].team_name
             teamDetailsViewController.teamLogo = teamsArray[indexPath.row].team_logo

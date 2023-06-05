@@ -23,6 +23,8 @@
 		8A4BF0D22A17DE4900DA2F2A /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4BF0D12A17DE4900DA2F2A /* FavoritesViewController.swift */; };
 		8A4BF0D42A17FCF500DA2F2A /* SportsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4BF0D32A17FCF500DA2F2A /* SportsCollectionViewCell.swift */; };
 		8A4FD0FC2A2E4773001C3909 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD0FB2A2E4773001C3909 /* DatabaseService.swift */; };
+		8A4FD0FE2A2E890F001C3909 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD0FD2A2E890F001C3909 /* FavoritesPresenter.swift */; };
+		8A4FD1032A2E8D67001C3909 /* AnyFavoritesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FD1022A2E8D67001C3909 /* AnyFavoritesScreen.swift */; };
 		8A5A92102A27CBA900B62797 /* LeagueDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A920F2A27CBA900B62797 /* LeagueDetailsPresenter.swift */; };
 		8A5A92122A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A92112A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift */; };
 		8A70E6B12A1E9BDC0081F266 /* BasketballPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A70E6B02A1E9BDC0081F266 /* BasketballPresenter.swift */; };
@@ -95,6 +97,8 @@
 		8A4BF0D12A17DE4900DA2F2A /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		8A4BF0D32A17FCF500DA2F2A /* SportsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A4FD0FB2A2E4773001C3909 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		8A4FD0FD2A2E890F001C3909 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		8A4FD1022A2E8D67001C3909 /* AnyFavoritesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyFavoritesScreen.swift; sourceTree = "<group>"; };
 		8A5A920F2A27CBA900B62797 /* LeagueDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsPresenter.swift; sourceTree = "<group>"; };
 		8A5A92112A27CC5A00B62797 /* AnyLeagueDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyLeagueDetailsScreen.swift; sourceTree = "<group>"; };
 		8A70E6B02A1E9BDC0081F266 /* BasketballPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasketballPresenter.swift; sourceTree = "<group>"; };
@@ -232,6 +236,14 @@
 				8A4BF0C42A17DD0200DA2F2A /* SportsAppUITestsLaunchTests.swift */,
 			);
 			path = SportsAppUITests;
+			sourceTree = "<group>";
+		};
+		8A4FD0FF2A2E8921001C3909 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				8A4FD0FD2A2E890F001C3909 /* FavoritesPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		8A7259CF2A19B043002E3639 /* Model */ = {
@@ -431,6 +443,7 @@
 		8AEE5A452A1DAE5F0045190B /* FavoritesScreen */ = {
 			isa = PBXGroup;
 			children = (
+				8A4FD0FF2A2E8921001C3909 /* Presenter */,
 				8AEE5A462A1DAE690045190B /* View */,
 			);
 			path = FavoritesScreen;
@@ -440,6 +453,7 @@
 			isa = PBXGroup;
 			children = (
 				8A4BF0D12A17DE4900DA2F2A /* FavoritesViewController.swift */,
+				8A4FD1022A2E8D67001C3909 /* AnyFavoritesScreen.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -742,6 +756,8 @@
 				8AA94D252A19552500A0CB91 /* TennisViewController.swift in Sources */,
 				8A7259D12A19B057002E3639 /* League.swift in Sources */,
 				8AD686992A250F0600D541FE /* UpcomingTeamsRemoteResponse.swift in Sources */,
+				8A4FD0FE2A2E890F001C3909 /* FavoritesPresenter.swift in Sources */,
+				8A4FD1032A2E8D67001C3909 /* AnyFavoritesScreen.swift in Sources */,
 				8A4BF0D42A17FCF500DA2F2A /* SportsCollectionViewCell.swift in Sources */,
 				8AA94D232A19550C00A0CB91 /* BasketballViewController.swift in Sources */,
 				8A4BF09F2A17DD0000DA2F2A /* AppDelegate.swift in Sources */,
