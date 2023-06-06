@@ -25,7 +25,6 @@ class Constants{
     
     static let PRE_API_KEY: String = "/?met=Leagues&APIkey="
     
-   // static let API_KEY: String = "437a0a08beafa927728387658df31aee617a02a2d90bba7fdbca43a37c594af7"
     static let API_KEY: String = "728ea9ef40b33ed45058992f84c8b69d05d0302d6a47a5f5ac585f062cb4140c"
     
     static let FOOTBALL: String = "football"

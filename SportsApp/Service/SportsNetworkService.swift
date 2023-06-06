@@ -7,9 +7,16 @@
 
 import Foundation
 
-class SportsNetworkService{
+class SportsNetworkService : AnySportsNetworkService{
     
     func getRemoteLeagues(sportsType: String,onComplete: @escaping (Array<Dictionary<String,Any>>) -> Void,updateUI: @escaping () -> ()){
+        
+        if sportsType != Constants.FOOTBALL && sportsType != Constants.BASKETBALL && sportsType != Constants.CRICKET && sportsType != Constants.TENNIS {
+            onComplete([])
+            updateUI()
+        }
+        
+        
         let fullURL = Constants.BASE_URL + sportsType + Constants.PRE_API_KEY + Constants.API_KEY
         
             let request = URLRequest(url: URL(string: fullURL)!)
@@ -32,7 +39,8 @@ class SportsNetworkService{
                   
                 }
                 catch{
-                    print("Football Service -----> Unable to fetch leagues' data!")
+                    print("League Service -----> Unable to fetch leagues' data!")
+                    print("\(error.localizedDescription)")
                 }
                 
             }
@@ -46,6 +54,11 @@ class SportsNetworkService{
     
     func getRemoteUpcomingMatches(type: String,leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
         
+        if type != Constants.FOOTBALL && type != Constants.BASKETBALL && type != Constants.CRICKET && type != Constants.TENNIS {
+            onComplete([])
+            updateUI()
+        }
+        
         var fullURL = Constants.BASE_URL + type + "/?met=Fixtures&APIkey="
         fullURL += Constants.API_KEY + "&from=" + Constants.startDateAsString
         fullURL += "&to=" + Constants.endDateAsString + "&leagueId=" + "\(leagueId)"
@@ -58,7 +71,11 @@ class SportsNetworkService{
                 
                 do{
                     guard let actualData = data
-                    else{return}
+                    else{
+                      //  onComplete([])
+                       // updateUI()
+                        return
+                    }
                     
                     let result = try JSONDecoder().decode(UpcomingTeamsRemoteResponse.self, from: actualData)
                     onComplete(result.result ?? [])
@@ -79,6 +96,11 @@ class SportsNetworkService{
     
     
     func getRemoteLatestMatches(type: String,leagueId: Int,onComplete: @escaping (Array<UpcomingMatch>) -> Void,updateUI: @escaping () -> ()){
+        
+        if type != Constants.FOOTBALL && type != Constants.BASKETBALL && type != Constants.CRICKET && type != Constants.TENNIS {
+            onComplete([])
+            updateUI()
+        }
         
         let fullURL = Constants.BASE_URL + type + "/?met=Fixtures&leagueId=" + "\(leagueId)" + "&APIkey=" + Constants.API_KEY + "&from=2023-01-01&to=2023-05-23"
         
@@ -111,6 +133,11 @@ class SportsNetworkService{
     
     
     func getRemoteTeams(type: String,leagueId: Int,onComplete: @escaping (Array<Team>) -> Void,updateUI: @escaping () -> ()){
+        
+        if type != Constants.FOOTBALL && type != Constants.BASKETBALL && type != Constants.CRICKET && type != Constants.TENNIS {
+            onComplete([])
+            updateUI()
+        }
         
         let fullURL = Constants.BASE_URL + type + "/?met=Teams&APIkey=" + Constants.API_KEY + "&leagueId=" + "\(leagueId)"
         
